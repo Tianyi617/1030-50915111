@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>懶加載示例</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            padding-top: 56px; /* 根據實際 navbar 高度調整 */
+        }
+        .lazy {
+            min-height: 300px; /* 設定圖片的最小高度 */
+            background-color: #a8e4cd; /* 占位背景顏色 */
+        }
+        .row{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar 位置 -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">JS 套件介紹<img src="js.png" alt="js" width="30" height="24"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="aos.html">AOS 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="text-to-speech.html">文字轉語音</a></li>
+                    <li class="nav-item"><a class="nav-link" href="lottie.html">Lottie 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chart.html">Chart.js 圖表</a></li>
+                    <li class="nav-item"><a class="nav-link" href="lazy-loading.html">圖片懶加載</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Three.html">Three.js 3D效果</a></li>
+                    <li class="nav-item"><a class="nav-link" href="GSAP.html">GSAP 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Moment.html">moment.js時區</a></li>
+                    <li class="nav-item"><a class="nav-link" href="P5.html">P5.js</a></li>
+                    <li class="nav-item"><a class="nav-link" href="D3.html">D3.js 圓形圖</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-3">
+        <h2>懶加載圖片示例</h2>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API" target="_blank">Intersection Observer API 官網</a>
+        <pre><code>
+            &lt;script&gt;
+                // 使用 JavaScript 動態生成圖片
+                function generateImages(imageCount) {
+                    const container = document.getElementById('image-container');
+                    for (let i = 1; i &lt;= imageCount; i++) {
+                        const col = document.createElement('div');
+                        col.className = 'col-4 mb-3';
+            
+                        const img = document.createElement('img');
+                        img.dataset.src = `http://fakeimg.pl/300x250/?text=${i}`;
+                        img.className = 'lazy img-fluid'; // 使用 img-fluid 確保圖片調整大小
+                        img.alt = `圖片 ${i}`;
+            
+                        col.appendChild(img);
+                        container.appendChild(col);
+                    }
+                }
+            
+                // 初始化懶加載
+                function initLazyLoading() {
+                    const images = document.querySelectorAll('.lazy');
+                    const observer = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const img = entry.target;
+                                img.src = img.dataset.src; // 使用 img.src 直接加載圖片
+                                observer.unobserve(img); // 停止觀察該圖片
+                            }
+                        });
+                    });
+                    images.forEach(image => observer.observe(image));
+                }
+            
+                // 生成 99 張圖片並初始化懶加載
+                generateImages(99);
+                initLazyLoading();
+            &lt;/script&gt;
+            </code></pre>
+            
+        <div class="row" id="image-container">
+            <!-- 動態生成的圖片將插入此處 -->
+        </div>
+    </div>
+
+    <script>
+        // 使用 JavaScript 動態生成圖片
+        function generateImages(imageCount) {
+            const container = document.getElementById('image-container');
+            for (let i = 1; i <= imageCount; i++) {
+                const col = document.createElement('div');
+                col.className = 'col-4 mb-3';
+
+                const img = document.createElement('img');
+                img.dataset.src = `http://fakeimg.pl/300x250/?text=${i}`;
+                img.className = 'lazy img-fluid'; // 使用 img-fluid 確保圖片調整大小
+                img.alt = `圖片 ${i}`;
+
+                col.appendChild(img);
+                container.appendChild(col);
+            }
+        }
+
+        // 初始化懶加載
+        function initLazyLoading() {
+            const images = document.querySelectorAll('.lazy');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src; // 使用 img.src 直接加載圖片
+                        observer.unobserve(img); // 停止觀察該圖片
+                    }
+                });
+            });
+            images.forEach(image => observer.observe(image));
+        }
+
+        // 生成 99 張圖片並初始化懶加載
+        generateImages(99);
+        initLazyLoading();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+</body>
+</html>

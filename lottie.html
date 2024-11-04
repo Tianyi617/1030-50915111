@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottie 動畫示例</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 70px;
+        }
+        #lottie {
+            width: 300px; /* 設定動畫寬度 */
+            height: 300px; /* 設定動畫高度 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar 位置 -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">JS 套件介紹<img src="js.png" alt="js" width="30" height="24"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="aos.html">AOS 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="text-to-speech.html">文字轉語音</a></li>
+                    <li class="nav-item"><a class="nav-link" href="lottie.html">Lottie 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chart.html">Chart.js 圖表</a></li>
+                    <li class="nav-item"><a class="nav-link" href="lazy-loading.html">圖片懶加載</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Three.html">Three.js 3D效果</a></li>
+                    <li class="nav-item"><a class="nav-link" href="GSAP.html">GSAP 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Moment.html">moment.js時區</a></li>
+                    <li class="nav-item"><a class="nav-link" href="P5.html">P5.js</a></li>
+                    <li class="nav-item"><a class="nav-link" href="D3.html">D3.js 圓形圖</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>動畫展示</h1>
+        <a href="https://airbnb.io/lottie/#/" target="_blank">Lottie.js 官網</a>
+        <pre><code>
+            &lt;script&gt;
+                // 加載 Lottie 動畫
+                const animationContainer = document.getElementById('lottie');
+            
+                const animation = lottie.loadAnimation({
+                    container: animationContainer, // 動畫容器
+                    path: 'animation.json', // 確保這個路徑正確，並且能訪問到 animation.json 文件
+                    renderer: 'svg', // 渲染器選項（'svg'、'canvas' 或 'html'）
+                    loop: true, // 是否循環播放
+                    autoplay: true, // 是否自動播放
+                });
+            &lt;/script&gt;
+            </code></pre>
+            
+        <div id="lottie"></div>
+        <pre><code>
+
+</code></pre>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+    <script>
+        // 加載 Lottie 動畫
+        const animationContainer = document.getElementById('lottie');
+
+        const animation = lottie.loadAnimation({
+            container: animationContainer, // 動畫容器
+            path: 'animation.json', // 確保這個路徑正確，並且能訪問到 animation.json 文件
+            renderer: 'svg', // 渲染器選項（'svg'、'canvas' 或 'html'）
+            loop: true, // 是否循環播放
+            autoplay: true, // 是否自動播放
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

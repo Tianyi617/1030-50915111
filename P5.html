@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P5.js 示例</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 70px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar 位置 -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">JS 套件介紹<img src="js.png" alt="js" width="30" height="24"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="aos.html">AOS 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="text-to-speech.html">文字轉語音</a></li>
+                    <li class="nav-item"><a class="nav-link" href="lottie.html">Lottie 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chart.html">Chart.js 圖表</a></li>
+                    <li class="nav-item"><a class="nav-link" href="lazy-loading.html">圖片懶加載</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Three.html">Three.js 3D效果</a></li>
+                    <li class="nav-item"><a class="nav-link" href="GSAP.html">GSAP 動畫</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Moment.html">moment.js時區</a></li>
+                    <li class="nav-item"><a class="nav-link" href="P5.html">P5.js</a></li>
+                    <li class="nav-item"><a class="nav-link" href="D3.html">D3.js 圓形圖</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <h1>P5.js示例</h1>
+    <a href="https://p5js.org/" target="_blank">P5.js官網</a>
+    <pre><code>
+        let particles = []; // 粒子陣列
+        
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+        }
+        
+        function draw() {
+            background(0, 50); // 淡黑色背景，提供拖影效果
+        
+            // 添加新粒子
+            particles.push(new Particle(mouseX, mouseY));
+        
+            // 更新並顯示粒子
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].display();
+        
+                // 從陣列中刪除透明度耗盡的粒子
+                if (particles[i].alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+        
+            // 顯示粒子間的連接線
+            drawConnections();
+        }
+        
+        // 粒子類
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = random(5, 15); // 隨機大小
+                this.alpha = 255;
+                this.life = random(60, 120); // 設定粒子壽命
+                this.color = [random(100, 255), random(100, 255), random(100, 255)];
+                this.vx = random(-1, 1); // 隨機水平速度
+                this.vy = random(-1, 1); // 隨機垂直速度
+            }
+        
+            update() {
+                // 根據速度移動位置
+                this.x += this.vx;
+                this.y += this.vy;
+        
+                // 增加透明度漸變
+                this.alpha = map(this.life, 0, 120, 0, 255);
+                this.size *= 0.98; // 緩慢縮小粒子
+        
+                // 隨時間推移，顏色逐漸淡化
+                this.color[0] = (this.color[0] + random(-1, 1)) % 255;
+                this.color[1] = (this.color[1] + random(-1, 1)) % 255;
+                this.color[2] = (this.color[2] + random(-1, 1)) % 255;
+        
+                this.life -= 1; // 減少壽命
+            }
+        
+            display() {
+                noStroke();
+                fill(this.color[0], this.color[1], this.color[2], this.alpha); // 透明顏色
+                ellipse(this.x, this.y, this.size);
+            }
+        }
+        
+        // 畫出粒子之間的連接線
+        function drawConnections() {
+            stroke(255, 100); // 淡白色連接線
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let d = dist(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
+                    if (d < 80) {
+                        line(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
+                    }
+                }
+            }
+        }
+        
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+        </code></pre>
+        
+    <script src="sketch.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>
